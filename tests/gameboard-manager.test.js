@@ -123,33 +123,81 @@ describe("Gameboard.placeShip() places ship in correct direction", () => {
     const myGameboard = Gameboard();
     myGameboard.placeShip(4, 7, "down", Ship(3));
     const gameboard = myGameboard.getGameboard();
-    gameboard[4][7].hit(0);
+    gameboard[4][7].hit(1);
     expect(gameboard[4][7]).toMatchObject({
       length: 3,
-      damaged: [true, false, false],
+      damaged: [false, true, false],
     });
 
     expect(gameboard[4][8]).toMatchObject({
       length: 3,
-      damaged: [true, false, false],
+      damaged: [false, true, false],
     });
 
     expect(gameboard[4][9]).toMatchObject({
       length: 3,
-      damaged: [true, false, false],
+      damaged: [false, true, false],
     });
   });
 });
 
-test("Gameboard.receiveAttack() hits/misses correctly", () => {
+describe("Gamebooard.receiveAttack() works correctly", () => {
   const myGameboard = Gameboard();
-  // places ship at x,y coordinates (4,7), (4,8), (4,9)
-  myGameboard.placeShip(4, 7, "down", Ship(3));
   const gameboard = myGameboard.getGameboard();
 
-  gameboard.receiveAttack(4, 8);
-  expect(gameboard[4][7]).toMatchObject({
-    length: 3,
-    damaged: [false, true, false],
+  // places ship at x,y coordinates (4,7), (4,8), (4,9)
+  myGameboard.placeShip(4, 7, "down", Ship(3));
+
+  test("Gameboard.receiveAttack() hits correctly", () => {
+    const myGameboard = Gameboard();
+    // places ship at x,y coordinates (4,7), (4,8), (4,9)
+    myGameboard.placeShip(4, 7, "down", Ship(3));
+    const gameboard = myGameboard.getGameboard();
+
+    myGameboard.receiveAttack(4, 8);
+    expect(gameboard[4][8]).toMatchObject({
+      length: 3,
+      damaged: [false, true, false],
+    });
   });
+
+  test("Gameboard.receiveAttack() saves misses correctly", () => {
+    myGameboard.receiveAttack(0, 0);
+    myGameboard.receiveAttack(9, 9);
+    myGameboard.receiveAttack(4, 9);
+    myGameboard.receiveAttack(4, 6);
+    myGameboard.receiveAttack(3, 7);
+
+    expect(myGameboard.missedShots).toEqual(["0,0", "9,9", "4,6", "3,7"]);
+  });
+});
+
+test("Gameboard.areAllSunk() checks if all ships are sunk correctly", () => {
+  const myGameboard = Gameboard();
+  const gameboard = myGameboard.getGameboard();
+
+  // places ship at x,y coordinates (4,7), (4,8), (4,9)
+  myGameboard.placeShip(4, 7, "down", Ship(3));
+
+  // places ship at x,y coordinates (0,3), (0,4)
+  myGameboard.placeShip(0, 3, "right", Ship(2));
+
+  myGameboard.placeShip(0, 4, "right", Ship(2));
+
+  //expect(myGameboard.areAllSunk()).toBe(false);
+
+  myGameboard.receiveAttack(4, 7);
+  myGameboard.receiveAttack(4, 8);
+  myGameboard.receiveAttack(4, 9);
+
+  myGameboard.receiveAttack(0, 3);
+  myGameboard.receiveAttack(1, 3);
+
+  myGameboard.receiveAttack(0, 4);
+  myGameboard.receiveAttack(1, 4);
+
+  expect(gameboard[1][3].isSunk()).toBe(true);
+  expect(gameboard[4][8].isSunk()).toBe(true);
+
+  expect(myGameboard.areAllSunk()).toBe(true);
 });
