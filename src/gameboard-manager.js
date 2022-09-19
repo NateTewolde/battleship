@@ -20,7 +20,17 @@ const Gameboard = () => {
       }
     }
   };
-  return { getGameboard, placeShip };
+
+  const receiveAttack = (x, y) => {
+    // how to hit the correct position in the ship tho.
+    // maybe sees the length, find the start and finds the correct
+    // hit location.
+    if (gameboard[x][y]) {
+      gameboard[x][y].hit();
+    }
+  };
+
+  return { getGameboard, placeShip, receiveAttack };
 };
 
 export default Gameboard;
