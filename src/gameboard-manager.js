@@ -1,36 +1,57 @@
 const Gameboard = () => {
   const gameboard = [[], [], [], [], [], [], [], [], [], []];
   const getGameboard = () => gameboard;
+  const ships = [];
 
   const placeShip = (col, row, direction, ship) => {
-    gameboard[col][row] = ship;
+    const newShipInfo = [];
 
     for (let i = 0; i < ship.length; i++) {
       if (direction === "left") {
         gameboard[col - i][row] = ship;
+        newShipInfo.push(`${col - i},${row}`);
       }
       if (direction === "right") {
         gameboard[col + i][row] = ship;
+        newShipInfo.push(`${col + i},${row}`);
       }
       if (direction === "down") {
         gameboard[col][row + i] = ship;
+        newShipInfo.push(`${col},${row + i}`);
       }
       if (direction === "up") {
         gameboard[col][row - i] = ship;
+        newShipInfo.push(`${col},${row - i}`);
       }
     }
+
+    newShipInfo.push(ship);
+    ships.push(newShipInfo);
+    return newShipInfo;
   };
+
+  const missedShots = [];
 
   const receiveAttack = (x, y) => {
-    // how to hit the correct position in the ship tho.
-    // maybe sees the length, find the start and finds the correct
-    // hit location.
-    if (gameboard[x][y]) {
-      gameboard[x][y].hit();
+    const xPlusY = `${x},${y}`;
+    let hitPosition;
+
+    for (let i = 0; i < ships.length; i++) {
+      hitPosition = ships[i].findIndex((coordinates) => coordinates === xPlusY);
     }
+
+    if (gameboard[x][y]) {
+      gameboard[x][y].hit(hitPosition);
+      return;
+    }
+
+    missedShots.push(xPlusY);
   };
 
-  return { getGameboard, placeShip, receiveAttack };
+  const areAllSunk = () => ships;
+  //  ships.every((ship) => ship[ship.length - 1].isSunk());
+
+  return { getGameboard, placeShip, receiveAttack, missedShots, areAllSunk };
 };
 
 export default Gameboard;
