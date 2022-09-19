@@ -140,3 +140,16 @@ describe("Gameboard.placeShip() places ship in correct direction", () => {
     });
   });
 });
+
+test("Gameboard.receiveAttack() hits/misses correctly", () => {
+  const myGameboard = Gameboard();
+  // places ship at x,y coordinates (4,7), (4,8), (4,9)
+  myGameboard.placeShip(4, 7, "down", Ship(3));
+  const gameboard = myGameboard.getGameboard();
+
+  gameboard.receiveAttack(4, 8);
+  expect(gameboard[4][7]).toMatchObject({
+    length: 3,
+    damaged: [false, true, false],
+  });
+});
