@@ -27,7 +27,6 @@ const Gameboard = () => {
 
     newShipInfo.push(ship);
     ships.push(newShipInfo);
-    return newShipInfo;
   };
 
   const missedShots = [];
@@ -35,23 +34,34 @@ const Gameboard = () => {
   const receiveAttack = (x, y) => {
     const xPlusY = `${x},${y}`;
     let hitPosition;
+    let didItHit;
 
     for (let i = 0; i < ships.length; i++) {
       hitPosition = ships[i].findIndex((coordinates) => coordinates === xPlusY);
+      if (gameboard[x][y] != null) {
+        gameboard[x][y].hit(hitPosition);
+        didItHit = true;
+      }
     }
 
-    if (gameboard[x][y]) {
-      gameboard[x][y].hit(hitPosition);
+    if (didItHit) {
       return;
     }
 
     missedShots.push(xPlusY);
   };
 
-  const areAllSunk = () => ships;
-  //  ships.every((ship) => ship[ship.length - 1].isSunk());
+  const areAllSunk = () =>
+    ships.slice(0).every((ship) => ship[ship.length - 1].isSunk());
 
-  return { getGameboard, placeShip, receiveAttack, missedShots, areAllSunk };
+  return {
+    getGameboard,
+    placeShip,
+    receiveAttack,
+    missedShots,
+    areAllSunk,
+    ships,
+  };
 };
 
 export default Gameboard;
