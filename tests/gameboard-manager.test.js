@@ -149,11 +149,6 @@ describe("Gamebooard.receiveAttack() works correctly", () => {
   myGameboard.placeShip(4, 7, "down", Ship(3));
 
   test("Gameboard.receiveAttack() hits correctly", () => {
-    const myGameboard = Gameboard();
-    // places ship at x,y coordinates (4,7), (4,8), (4,9)
-    myGameboard.placeShip(4, 7, "down", Ship(3));
-    const gameboard = myGameboard.getGameboard();
-
     myGameboard.receiveAttack(4, 8);
     expect(gameboard[4][8]).toMatchObject({
       length: 3,
@@ -178,26 +173,22 @@ test("Gameboard.areAllSunk() checks if all ships are sunk correctly", () => {
 
   // places ship at x,y coordinates (4,7), (4,8), (4,9)
   myGameboard.placeShip(4, 7, "down", Ship(3));
-
-  // places ship at x,y coordinates (0,3), (0,4)
+  // places ship at x,y coordinates (0,3), (1,3)
   myGameboard.placeShip(0, 3, "right", Ship(2));
-
+  // places ship at x,y coordinates (0,4), (1,4)
   myGameboard.placeShip(0, 4, "right", Ship(2));
-
-  //expect(myGameboard.areAllSunk()).toBe(false);
 
   myGameboard.receiveAttack(4, 7);
   myGameboard.receiveAttack(4, 8);
+
   myGameboard.receiveAttack(4, 9);
 
   myGameboard.receiveAttack(0, 3);
   myGameboard.receiveAttack(1, 3);
 
   myGameboard.receiveAttack(0, 4);
+  expect(myGameboard.areAllSunk()).toBe(false);
   myGameboard.receiveAttack(1, 4);
-
-  expect(gameboard[1][3].isSunk()).toBe(true);
-  expect(gameboard[4][8].isSunk()).toBe(true);
 
   expect(myGameboard.areAllSunk()).toBe(true);
 });
