@@ -60,7 +60,6 @@ const Gameboard = () => {
     receiveAttack,
     missedShots,
     areAllSunk,
-    ships,
   };
 };
 
