@@ -156,13 +156,14 @@ describe("Gamebooard.receiveAttack() works correctly", () => {
     });
   });
 
-  test("Gameboard.receiveAttack() saves misses correctly", () => {
+  test("Gameboard.receiveAttack() saves missed and hit shots correctly", () => {
     myGameboard.receiveAttack(0, 0);
     myGameboard.receiveAttack(9, 9);
     myGameboard.receiveAttack(4, 9);
     myGameboard.receiveAttack(4, 6);
     myGameboard.receiveAttack(3, 7);
 
+    expect(myGameboard.hitShots).toEqual(["4,8", "4,9"]);
     expect(myGameboard.missedShots).toEqual(["0,0", "9,9", "4,6", "3,7"]);
   });
 });
