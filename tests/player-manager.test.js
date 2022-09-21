@@ -48,3 +48,42 @@ test("Player.attack(enemy, x, y) makes enemy gameboard receive attack correctly"
   expect(player1.gameboard.areAllSunk()).toBe(true);
   expect(player2.gameboard.areAllSunk()).toBe(true);
 });
+
+test("Player.attack() from a computer player uses a random unused attack correctly", () => {
+  const humanPlayer = Player(Gameboard());
+  const computerPlayer = Player(Gameboard(), true);
+
+  // places ship at x,y coordinates (4,7), (4,8), (4,9)
+  computerPlayer.gameboard.placeShip(4, 7, "down", Ship(3));
+  // places ship at x,y coordinates (0,3), (1,3)
+  computerPlayer.gameboard.placeShip(0, 3, "right", Ship(2));
+  // places ship at x,y coordinates (0,4), (1,4)
+  computerPlayer.gameboard.placeShip(0, 4, "right", Ship(2));
+
+  for (let j = 0; j < 10; j++) {
+    humanPlayer.gameboard.placeShip(0, j, "right", Ship(10));
+  }
+
+  expect(computerPlayer.gameboard.areAllSunk()).toBe(false);
+  humanPlayer.attack(computerPlayer, 4, 7);
+  humanPlayer.attack(computerPlayer, 0, 3);
+  humanPlayer.attack(computerPlayer, 1, 3);
+  humanPlayer.attack(computerPlayer, 0, 4);
+  expect(computerPlayer.gameboard.areAllSunk()).toBe(false);
+  humanPlayer.attack(computerPlayer, 1, 4);
+  humanPlayer.attack(computerPlayer, 4, 8);
+  humanPlayer.attack(computerPlayer, 4, 9);
+
+  for (let i = 0; i < 98; i++) {
+    computerPlayer.attack(humanPlayer);
+  }
+
+  expect(computerPlayer.gameboard.areAllSunk()).toBe(true);
+
+  expect(computerPlayer.attacksMade.length).toBe(98);
+  expect(humanPlayer.gameboard.areAllSunk()).toBe(false);
+  computerPlayer.attack(humanPlayer);
+  computerPlayer.attack(humanPlayer);
+  expect(computerPlayer.attacksMade.length).toBe(100);
+  expect(humanPlayer.gameboard.areAllSunk()).toBe(true);
+});
