@@ -30,6 +30,7 @@ const Gameboard = () => {
   };
 
   const missedShots = [];
+  const hitShots = [];
 
   const receiveAttack = (x, y) => {
     const xPlusY = `${x},${y}`;
@@ -45,6 +46,7 @@ const Gameboard = () => {
     }
 
     if (didItHit) {
+      hitShots.push(xPlusY);
       return;
     }
 
@@ -59,6 +61,7 @@ const Gameboard = () => {
     placeShip,
     receiveAttack,
     missedShots,
+    hitShots,
     areAllSunk,
   };
 };
