@@ -1,5 +1,16 @@
 const Ship = (length) => {
-  const damaged = [false, false, false, false, false].slice(0, length);
+  const damaged = [
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+  ].slice(0, length);
   const hit = (location) => {
     damaged[location] = true;
   };
