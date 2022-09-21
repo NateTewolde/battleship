@@ -1,6 +1,6 @@
-import Player from "../src/player-manager.js";
-import Gameboard from "../src/gameboard-manager.js";
-import Ship from "../src/ship-manager.js";
+import Player from "../src/player-manager";
+import Gameboard from "../src/gameboard-manager";
+import Ship from "../src/ship-manager";
 
 test("Player.attack(enemy, x, y) makes enemy gameboard receive attack correctly", () => {
   const player1 = Player(Gameboard());

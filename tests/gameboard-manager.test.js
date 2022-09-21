@@ -1,4 +1,4 @@
-import Gameboard from "../src/gameboard-manager.js";
+import Gameboard from "../src/gameboard-manager";
 import Ship from "../src/ship-manager";
 
 test("10x10 Gameboard created", () => {
