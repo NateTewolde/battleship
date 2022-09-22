@@ -27,7 +27,7 @@ body {
 .gameboard {
   flex: 1;
   display: flex;
-  flex-direction: column;
+  flex-direction: column-reverse;
   justify-content: center;
   padding: 64px;
   background-color: #1fdff0;
