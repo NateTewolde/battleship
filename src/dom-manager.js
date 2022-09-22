@@ -19,7 +19,7 @@ const displayBoard = function displayPlayerGameBoard(gameboard) {
     }
     gameboardElement.appendChild(row);
   }
-  return displayBoard;
+  return gameboardElement;
 };
 
 export default displayBoard;
