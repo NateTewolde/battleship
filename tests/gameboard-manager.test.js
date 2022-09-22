@@ -1,3 +1,4 @@
+import { expect } from "expect";
 import Gameboard from "../src/gameboard-manager";
 import Ship from "../src/ship-manager";
 
@@ -33,33 +34,39 @@ test("Ship.length gets the correct length", () => {
 describe("Gameboard.placeShip() places ship in correct direction", () => {
   test("Places ship left", () => {
     const myGameboard = Gameboard();
-    myGameboard.placeShip(4, 1, "left", Ship(4));
+    myGameboard.placeShip(4, 1, "left", Ship(2));
     const gameboard = myGameboard.getGameboard();
     gameboard[4][1].hit(1);
     expect(gameboard[4][1]).toMatchObject({
-      length: 4,
-      damaged: [false, true, false, false],
+      length: 2,
+      damaged: [false, true],
     });
 
-    expect(gameboard[3][1]).toMatchObject({
-      length: 4,
-      damaged: [false, true, false, false],
-    });
-
-    expect(gameboard[2][1]).toMatchObject({
-      length: 4,
-      damaged: [false, true, false, false],
-    });
-
-    expect(gameboard[1][1]).toMatchObject({
-      length: 4,
-      damaged: [false, true, false, false],
+    expect(gameboard[4][0]).toMatchObject({
+      length: 2,
+      damaged: [false, true],
     });
   });
 
   test("Places ship right", () => {
     const myGameboard = Gameboard();
     myGameboard.placeShip(4, 7, "right", Ship(5));
+    const gameboard = myGameboard.getGameboard();
+    gameboard[4][7].hit(2);
+    expect(gameboard[4][7]).toMatchObject({
+      length: 5,
+      damaged: [false, false, true, false, false],
+    });
+
+    expect(gameboard[4][8]).toMatchObject({
+      length: 5,
+      damaged: [false, false, true, false, false],
+    });
+  });
+
+  test("Places ship up", () => {
+    const myGameboard = Gameboard();
+    myGameboard.placeShip(4, 7, "up", Ship(5));
     const gameboard = myGameboard.getGameboard();
     gameboard[4][7].hit(2);
     expect(gameboard[4][7]).toMatchObject({
@@ -88,37 +95,6 @@ describe("Gameboard.placeShip() places ship in correct direction", () => {
     });
   });
 
-  test("Places ship up", () => {
-    const myGameboard = Gameboard();
-    myGameboard.placeShip(4, 7, "up", Ship(5));
-    const gameboard = myGameboard.getGameboard();
-    gameboard[4][7].hit(2);
-    expect(gameboard[4][7]).toMatchObject({
-      length: 5,
-      damaged: [false, false, true, false, false],
-    });
-
-    expect(gameboard[4][6]).toMatchObject({
-      length: 5,
-      damaged: [false, false, true, false, false],
-    });
-
-    expect(gameboard[4][5]).toMatchObject({
-      length: 5,
-      damaged: [false, false, true, false, false],
-    });
-
-    expect(gameboard[4][4]).toMatchObject({
-      length: 5,
-      damaged: [false, false, true, false, false],
-    });
-
-    expect(gameboard[4][3]).toMatchObject({
-      length: 5,
-      damaged: [false, false, true, false, false],
-    });
-  });
-
   test("Places ship down", () => {
     const myGameboard = Gameboard();
     myGameboard.placeShip(4, 7, "down", Ship(3));
@@ -129,12 +105,12 @@ describe("Gameboard.placeShip() places ship in correct direction", () => {
       damaged: [false, true, false],
     });
 
-    expect(gameboard[4][8]).toMatchObject({
+    expect(gameboard[3][7]).toMatchObject({
       length: 3,
       damaged: [false, true, false],
     });
 
-    expect(gameboard[4][9]).toMatchObject({
+    expect(gameboard[2][7]).toMatchObject({
       length: 3,
       damaged: [false, true, false],
     });
@@ -146,11 +122,12 @@ describe("Gamebooard.receiveAttack() works correctly", () => {
   const gameboard = myGameboard.getGameboard();
 
   // places ship at x,y coordinates (4,7), (4,8), (4,9)
-  myGameboard.placeShip(4, 7, "down", Ship(3));
+  myGameboard.placeShip(4, 7, "up", Ship(3));
 
   test("Gameboard.receiveAttack() hits correctly", () => {
-    myGameboard.receiveAttack(4, 8);
-    expect(gameboard[4][8]).toMatchObject({
+    let hi = myGameboard.receiveAttack(5, 7);
+    expect(hi).toBe(1);
+    expect(gameboard[6][7]).toMatchObject({
       length: 3,
       damaged: [false, true, false],
     });
@@ -163,7 +140,7 @@ describe("Gamebooard.receiveAttack() works correctly", () => {
     myGameboard.receiveAttack(4, 6);
     myGameboard.receiveAttack(3, 7);
 
-    expect(myGameboard.hitShots).toEqual(["4,8", "4,9"]);
+    expect(myGameboard.hitShots).toEqual(["8,4", "9,4"]);
     expect(myGameboard.missedShots).toEqual(["0,0", "9,9", "4,6", "3,7"]);
   });
 });
