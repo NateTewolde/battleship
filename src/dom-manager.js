@@ -1,4 +1,13 @@
-// displayGameboard from (Gameboard.getGameboard()) parameter
+const formatGrids = function formatGridsToBeClickedOn() {
+  const grids = document.querySelectorAll(".grid");
+
+  grids.forEach((grid) =>
+    grid.addEventListener("click", () => {
+      console.log("hi");
+      // createAttack(grid data attribute)
+    })
+  );
+};
 
 const displayBoard = function displayPlayerGameBoard(gameboard) {
   const gameboardElement = document.createElement("div");
@@ -19,7 +28,10 @@ const displayBoard = function displayPlayerGameBoard(gameboard) {
     }
     gameboardElement.appendChild(row);
   }
+  formatGrids();
   return gameboardElement;
 };
+
+const createAttack = function triggerAttackOnEnemyGameboard() {};
 
 export default displayBoard;
