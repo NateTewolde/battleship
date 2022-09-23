@@ -4,14 +4,14 @@ import Ship from "../src/ship-manager";
 
 test("10x10 Gameboard created", () => {
   const myGameboard = Gameboard();
-  const gameboard = myGameboard.getGameboard();
+  const gameboard = myGameboard.getBoard();
   expect(gameboard.length).toBe(10);
 });
 
 test("Gameboard.placeShip() works at inital coordinate", () => {
   const myGameboard = Gameboard();
   myGameboard.placeShip(4, 1, "left", Ship(3));
-  const gameboard = myGameboard.getGameboard();
+  const gameboard = myGameboard.getBoard();
   expect(gameboard[4][1]).toMatchObject({
     length: 3,
     damaged: [false, false, false],
@@ -26,7 +26,7 @@ test("Gameboard.placeShip() works at inital coordinate", () => {
 test("Ship.length gets the correct length", () => {
   const myGameboard = Gameboard();
   myGameboard.placeShip(4, 1, "left", Ship(4));
-  const gameboard = myGameboard.getGameboard();
+  const gameboard = myGameboard.getBoard();
 
   expect(gameboard[4][1].length).toBe(4);
 });
@@ -35,7 +35,7 @@ describe("Gameboard.placeShip() places ship in correct direction", () => {
   test("Places ship left", () => {
     const myGameboard = Gameboard();
     myGameboard.placeShip(4, 1, "left", Ship(2));
-    const gameboard = myGameboard.getGameboard();
+    const gameboard = myGameboard.getBoard();
     gameboard[4][1].hit(1);
     expect(gameboard[4][1]).toMatchObject({
       length: 2,
@@ -51,7 +51,7 @@ describe("Gameboard.placeShip() places ship in correct direction", () => {
   test("Places ship right", () => {
     const myGameboard = Gameboard();
     myGameboard.placeShip(4, 7, "right", Ship(5));
-    const gameboard = myGameboard.getGameboard();
+    const gameboard = myGameboard.getBoard();
     gameboard[4][7].hit(2);
     expect(gameboard[4][7]).toMatchObject({
       length: 5,
@@ -67,7 +67,7 @@ describe("Gameboard.placeShip() places ship in correct direction", () => {
   test("Places ship up", () => {
     const myGameboard = Gameboard();
     myGameboard.placeShip(4, 7, "up", Ship(5));
-    const gameboard = myGameboard.getGameboard();
+    const gameboard = myGameboard.getBoard();
     gameboard[4][7].hit(2);
     expect(gameboard[4][7]).toMatchObject({
       length: 5,
@@ -98,7 +98,7 @@ describe("Gameboard.placeShip() places ship in correct direction", () => {
   test("Places ship down", () => {
     const myGameboard = Gameboard();
     myGameboard.placeShip(4, 7, "down", Ship(3));
-    const gameboard = myGameboard.getGameboard();
+    const gameboard = myGameboard.getBoard();
     gameboard[4][7].hit(1);
     expect(gameboard[4][7]).toMatchObject({
       length: 3,
@@ -119,7 +119,7 @@ describe("Gameboard.placeShip() places ship in correct direction", () => {
 
 describe("Gamebooard.receiveAttack() works correctly", () => {
   const myGameboard = Gameboard();
-  const gameboard = myGameboard.getGameboard();
+  const gameboard = myGameboard.getBoard();
 
   // places ship at x,y coordinates (4,7), (4,8), (4,9)
   myGameboard.placeShip(4, 7, "up", Ship(3));
@@ -148,7 +148,7 @@ describe("Gamebooard.receiveAttack() works correctly", () => {
 
 test("Gameboard.areAllSunk() checks if all ships are sunk correctly", () => {
   const myGameboard = Gameboard();
-  const gameboard = myGameboard.getGameboard();
+  const gameboard = myGameboard.getBoard();
 
   // places ship at x,y coordinates (4,7), (4,8), (4,9)
   myGameboard.placeShip(4, 7, "down", Ship(3));
