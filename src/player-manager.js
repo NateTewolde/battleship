@@ -30,7 +30,7 @@ const Player = (gameboard, isComputer) => {
     }
     enemy.gameboard.receiveAttack(x, y);
   };
-  return { gameboard, attack, attacksMade };
+  return { gameboard, attack, attacksMade, isComputer };
 };
 
 export default Player;
