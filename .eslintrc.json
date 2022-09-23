@@ -11,7 +11,7 @@
   },
   "ignorePatterns": ["**/tests/*.js"],
   "rules": {
-    "no-console": "off",
+    "no-console": "warn",
     "func-style": "error",
     "no-unused-vars": "warn",
     "no-plusplus": "off"
