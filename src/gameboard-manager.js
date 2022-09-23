@@ -1,6 +1,6 @@
 const Gameboard = () => {
   const gameboard = [[], [], [], [], [], [], [], [], [], []];
-  const getGameboard = () => gameboard;
+  const getBoard = () => gameboard;
   const ships = [];
 
   const placeShip = (col, row, direction, ship) => {
@@ -56,7 +56,7 @@ const Gameboard = () => {
     ships.slice(0).every((ship) => ship[ship.length - 1].isSunk());
 
   return {
-    getGameboard,
+    getBoard,
     placeShip,
     receiveAttack,
     missedShots,
