@@ -2,6 +2,11 @@ import Player from "../src/player-manager";
 import Gameboard from "../src/gameboard-manager";
 import Ship from "../src/ship-manager";
 
+test("Player object keeps track if its a computer", () => {
+  const computerPlayer = Player(Gameboard, true);
+  expect(computerPlayer.isComputer).toBe(true);
+});
+
 test("Player.attack(enemy, x, y) makes enemy gameboard receive attack correctly", () => {
   const player1 = Player(Gameboard());
   const player2 = Player(Gameboard());
