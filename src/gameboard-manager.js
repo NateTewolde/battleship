@@ -9,19 +9,19 @@ const Gameboard = () => {
     for (let i = 0; i < ship.length; i++) {
       if (direction === "left") {
         gameboard[col][row - i] = ship;
-        newShipInfo.push(`${col - i},${row}`);
+        newShipInfo.push(`${col},${row - i}`);
       }
       if (direction === "right") {
         gameboard[col][row + i] = ship;
-        newShipInfo.push(`${col + i},${row}`);
+        newShipInfo.push(`${col},${row + i}`);
       }
       if (direction === "down") {
         gameboard[col - i][row] = ship;
-        newShipInfo.push(`${col},${row + i}`);
+        newShipInfo.push(`${col - i},${row}`);
       }
       if (direction === "up") {
         gameboard[col + i][row] = ship;
-        newShipInfo.push(`${col},${row - i}`);
+        newShipInfo.push(`${col + i},${row}`);
       }
     }
 
@@ -44,13 +44,12 @@ const Gameboard = () => {
         didItHit = true;
       }
     }
-    return ships;
-    // if (didItHit) {
-    //   hitShots.push(xPlusY);
-    //   return;
-    // }
+    if (didItHit) {
+      hitShots.push(xPlusY);
+      return;
+    }
 
-    // missedShots.push(xPlusY);
+    missedShots.push(xPlusY);
   };
 
   const areAllSunk = () =>
