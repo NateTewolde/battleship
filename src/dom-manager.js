@@ -15,10 +15,13 @@ const displayBoard = function displayPlayerGameBoard(gameboard) {
   for (let i = 0; i < gameboard.length; i++) {
     const row = document.createElement("div");
     row.classList.add("row");
+    row.textContent = `${i}`;
 
     for (let j = 0; j < 10; j++) {
       const grid = document.createElement("div");
       grid.classList.add("grid");
+      // eslint-disable-next-line no-useless-escape
+      grid.textContent = `${j}`;
 
       if (gameboard[i][j] != null) {
         grid.classList.add("ship");
