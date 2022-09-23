@@ -1,11 +1,11 @@
 import Player from "./player-manager";
 import Gameboard from "./gameboard-manager";
 import Ship from "./ship-manager";
-import { displayBoard, formatGrids } from "./dom-manager";
+import displayGame from "./dom-manager";
 import "./styles/style.css";
 
 const humanPlayer = Player(Gameboard());
-const computerPlayer = Player(Gameboard());
+const computerPlayer = Player(Gameboard(), true);
 
 humanPlayer.gameboard.placeShip(0, 0, "down", Ship(1));
 humanPlayer.gameboard.placeShip(2, 0, "down", Ship(1));
@@ -19,9 +19,7 @@ humanPlayer.gameboard.placeShip(7, 1, "up", Ship(3));
 computerPlayer.gameboard.placeShip(4, 1, "up", Ship(2));
 computerPlayer.gameboard.placeShip(4, 7, "up", Ship(3));
 
-const playerSection = document.querySelector(".player-section");
-const computerSection = document.querySelector(".computer-section");
-computerSection.appendChild(displayBoard(computerPlayer.gameboard.getBoard()));
-playerSection.appendChild(displayBoard(humanPlayer.gameboard.getBoard()));
+humanPlayer.gameboard.receiveAttack(8, 1);
+humanPlayer.gameboard.receiveAttack(6, 7);
 
-formatGrids(humanPlayer, computerPlayer);
+displayGame(humanPlayer, computerPlayer);
