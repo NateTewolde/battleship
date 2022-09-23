@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 // Helper function that returns a random number between and including a mix/max
 const randomInt = function getRandomIntInclusive() {
   const setMin = 0;
@@ -25,9 +26,7 @@ const Player = (gameboard, isComputer) => {
   const attacksMade = [];
   const attack = (enemy, x, y) => {
     if (isComputer) {
-      const coords = randomAttack(attacksMade);
-      // eslint-disable-next-line no-param-reassign
-      [x, y] = coords;
+      [x, y] = randomAttack(attacksMade);
     }
     enemy.gameboard.receiveAttack(x, y);
   };
