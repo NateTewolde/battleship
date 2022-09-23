@@ -1,10 +1,16 @@
-const formatGrids = function formatGridsToBeClickedOn() {
-  const grids = document.querySelectorAll(".grid");
+const setAttack = function setAttackOnEnemyGameboard(gridId, player1, player2) {
+  const col = gridId.split(",")[0];
+  const row = gridId.split(",")[1];
+  console.log(`${col},${row}}`);
+  player1.attack(player2, col, row);
+};
 
+const formatGrids = function formatGridsToBeClickedOn(player1, player2) {
+  const grids = document.querySelectorAll(".grid");
   grids.forEach((grid) =>
     grid.addEventListener("click", () => {
-      console.log("hi");
-      // createAttack(grid data attribute)
+      const gridId = grid.getAttribute("data-grid-id");
+      setAttack(gridId, player1, player2);
     })
   );
 };
@@ -20,21 +26,17 @@ const displayBoard = function displayPlayerGameBoard(gameboard) {
     for (let j = 0; j < 10; j++) {
       const grid = document.createElement("div");
       grid.classList.add("grid");
-      // eslint-disable-next-line no-useless-escape
+      grid.setAttribute("data-grid-id", `${i},${j}`);
       grid.textContent = `${j}`;
 
       if (gameboard[i][j] != null) {
         grid.classList.add("ship");
       }
-
       row.appendChild(grid);
     }
     gameboardElement.appendChild(row);
   }
-  formatGrids();
   return gameboardElement;
 };
 
-const createAttack = function triggerAttackOnEnemyGameboard() {};
-
-export default displayBoard;
+export { displayBoard, formatGrids };
