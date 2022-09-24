@@ -13,11 +13,10 @@ const setAttack = function setAttackOnEnemyGameboard(gridId, player1, player2) {
   const col = gridId.split(",")[0];
   const row = gridId.split(",")[1];
   player1.attack(player2, col, row);
-  console.log(`${col},${row}`);
 };
 
 const formatGrids = function formatGridsToBeClickedOn(player1, player2) {
-  const grids = document.querySelectorAll(".grid");
+  const grids = document.querySelectorAll(".computer");
   grids.forEach((grid) =>
     grid.addEventListener("click", () => {
       const gridId = grid.getAttribute("data-grid-id");
@@ -30,8 +29,6 @@ const formatGrids = function formatGridsToBeClickedOn(player1, player2) {
 };
 
 const displayBoard = function displayPlayerGameBoard(player) {
-  console.log(player.gameboard.hitShots);
-
   const gameboard = player.gameboard.getBoard();
   const gameboardElement = document.createElement("div");
   gameboardElement.classList.add("gameboard");
