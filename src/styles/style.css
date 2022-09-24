@@ -60,9 +60,13 @@ body {
 }
 
 .ship {
-  background-color: #3b82f6;
+  background-color: #7c3aed;
 }
 
 .hit {
   background-color: #ef4444;
+}
+
+.missed {
+  background-color: #3b82f6;
 }
