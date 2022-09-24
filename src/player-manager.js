@@ -9,6 +9,9 @@ const randomInt = function getRandomIntInclusive() {
 };
 
 const randomAttack = function createRandomUnusedAttackChoice(attacksMade) {
+  if (attacksMade.length === 100) {
+    return [0, 0];
+  }
   let foundUsedAttack = true;
   while (foundUsedAttack) {
     const compX = randomInt();
