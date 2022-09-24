@@ -7,13 +7,26 @@
 
 body {
   background-color: lavender;
+  height: 100vh;
+  overflow: hidden;
+  font-family: "Roboto", sans-serif;
 }
 
 #content {
-  height: 100vh;
-  overflow: hidden;
+  display: grid;
+  grid-template-rows: 1fr 8fr 1fr;
+}
+
+.game-header {
   display: flex;
-  font-family: "Roboto", sans-serif;
+  justify-content: center;
+  color: #7c3aed;
+  font-size: 4rem;
+  font-weight: 500;
+}
+
+.gameboard-section {
+  display: flex;
 }
 
 .computer-section,
@@ -30,7 +43,7 @@ body {
   flex-direction: column-reverse;
   justify-content: center;
   padding: 64px;
-  background-color: #1fdff0;
+  background-color: #c4b5fd;
 }
 .row {
   display: flex;
