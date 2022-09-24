@@ -32,6 +32,9 @@ const displayBoard = function displayPlayerGameBoard(player) {
       if (player.gameboard.hitShots.includes(`${i},${j}`)) {
         grid.classList.add("hit");
       }
+      if (player.gameboard.missedShots.includes(`${i},${j}`)) {
+        grid.classList.add("missed");
+      }
       if (player.isComputer) {
         grid.classList.add("computer");
       }
