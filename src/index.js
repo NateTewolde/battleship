@@ -1,25 +1,46 @@
 import Player from "./player-manager";
 import Gameboard from "./gameboard-manager";
 import Ship from "./ship-manager";
-import displayGame from "./dom-manager";
+import { displayGame, clearGame, displayWinner } from "./dom-manager";
+import { setAttack, checkForWinner } from "./game-manager";
 import "./styles/style.css";
 
 const humanPlayer = Player(Gameboard());
 const computerPlayer = Player(Gameboard(), true);
 
-humanPlayer.gameboard.placeShip(0, 0, "down", Ship(1));
-humanPlayer.gameboard.placeShip(2, 0, "down", Ship(1));
-humanPlayer.gameboard.placeShip(0, 5, "down", Ship(1));
-humanPlayer.gameboard.placeShip(3, 2, "left", Ship(2));
+computerPlayer.gameboard.placeShip(4, 1, "up", Ship(5));
+computerPlayer.gameboard.placeShip(8, 7, "down", Ship(4));
+computerPlayer.gameboard.placeShip(0, 8, "left", Ship(3));
+computerPlayer.gameboard.placeShip(2, 3, "right", Ship(2));
+computerPlayer.gameboard.placeShip(9, 4, "left", Ship(1));
 
-humanPlayer.gameboard.placeShip(1, 7, "right", Ship(3));
-humanPlayer.gameboard.placeShip(8, 7, "down", Ship(3));
-humanPlayer.gameboard.placeShip(7, 1, "up", Ship(3));
-
-computerPlayer.gameboard.placeShip(4, 1, "up", Ship(2));
-computerPlayer.gameboard.placeShip(4, 7, "up", Ship(3));
-
-humanPlayer.gameboard.receiveAttack(8, 1);
-humanPlayer.gameboard.receiveAttack(6, 7);
+humanPlayer.gameboard.placeShip(1, 1, "up", Ship(5));
+humanPlayer.gameboard.placeShip(9, 2, "down", Ship(4));
+humanPlayer.gameboard.placeShip(8, 6, "left", Ship(3));
+humanPlayer.gameboard.placeShip(3, 4, "right", Ship(2));
+humanPlayer.gameboard.placeShip(4, 9, "left", Ship(1));
 
 displayGame(humanPlayer, computerPlayer);
+
+const formatGrids = function formatGridsToRunGame(player1, player2) {
+  const grids = document.querySelectorAll(".computer");
+  grids.forEach((grid) =>
+    grid.addEventListener("click", () => {
+      const gridId = grid.getAttribute("data-grid-id");
+      setAttack(gridId, player1, player2);
+      player2.attack(player1);
+
+      clearGame(player1, player2);
+      displayGame(player1, player2);
+
+      if (checkForWinner(player1, player2)) {
+        displayWinner(checkForWinner(player1, player2));
+        return;
+      }
+
+      formatGrids(player1, player2);
+    })
+  );
+};
+
+formatGrids(humanPlayer, computerPlayer);
