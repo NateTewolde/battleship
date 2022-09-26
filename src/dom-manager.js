@@ -4,10 +4,6 @@ const removeAllChildNodes = function removeAllChildNodes(parent) {
   }
 };
 
-const clearBoard = function clearUsersPlayerBoard() {
-  removeAllChildNodes(document.querySelector(".player-section"));
-};
-
 const clearGame = function removeElementsInGameSections() {
   removeAllChildNodes(document.querySelector(".player-section"));
   removeAllChildNodes(document.querySelector(".computer-section"));
@@ -72,23 +68,10 @@ const displayGame = function displayTheGame(player1, player2) {
   computerSection.appendChild(displayBoard(player2));
 };
 
-// 'Choose location' then 'Choose direction' with some header on top with arrows.
-// im not gonna even deal with overlapping. maybe i can.
-// put it in computer section
-
-// Psuedo: formatGrid to choose location, a drop down with directions is there,
-//         and a submit button. When submit button is hit it saves location and direction.
-//
-//         displayChooseShip(player) -> calls formatShipChoiceGrid (player, shipTypes) (gridID)
-//                                   -> calls getDirection() which will return
-//                                   -> when a submit button is hit
-//                                   -> calls LocationPromt()
-//                                   -> pops shipTypes. When no more ship types
-//                                   -> It calls chooseComputerShips() and then starts the game.
-//
 const locationPrompt = function promptUserForLocationPlacement(shipType) {
   const addShipPrompt = document.createElement("div");
   addShipPrompt.classList.add("add-ship-prompt");
+
   addShipPrompt.textContent = `Choose ${shipType[0]} location (length ${shipType[1]}).`;
 
   return addShipPrompt;
@@ -138,11 +121,10 @@ const displayDirectionForm =
     submitBtn.setAttribute("type", "button");
     submitBtn.textContent = "Submit";
     directionForm.appendChild(submitBtn);
-    console.log(directionForm);
     return directionForm;
   };
 
-const formatShipChoiceGrids = function formatGridsToRunGame(player) {
+const formatShipChoiceGrids = function formatGridsToRunGame() {
   let counter = 0;
   const grids = document.querySelectorAll(".grid");
   grids.forEach((grid) =>
@@ -150,52 +132,28 @@ const formatShipChoiceGrids = function formatGridsToRunGame(player) {
       if (counter > 0) {
         return;
       }
-      const gridId = grid.getAttribute("data-grid-id");
-      console.log(gridId);
       grid.classList.add("placement-location");
       counter++;
     })
   );
 };
 
-const shipTypes = [
-  ["Patrol Boat", 2],
-  ["Submarine", 3],
-  ["Destroyer", 3],
-  ["Battleship", 4],
-  ["Carrier", 5],
-];
-
-const formatSubmitBtn = function formatsDirectionSubmitButtonWhenClicked() {
-  const submitFormBtn = document.querySelector(".submit-form-btn");
-  submitFormBtn.addEventListener("click", () => {
-    const location = document.querySelector(".placement-location");
-    const gridId = location.getAttribute("data-grid-id");
-
-    const directionSelected = document.getElementById("direction");
-    const directionChoice =
-      directionSelected.options[directionSelected.selectedIndex].text;
-
-    console.log(gridId + directionChoice + shipTypes[shipTypes.length - 1]);
-    shipTypes.pop();
-  });
-};
-
-const displayChooseShip = function getShipPlacementFromUser(player) {
+const displayChooseShip = function getShipPlacementFromUser(
+  player1,
+  shipTypes
+) {
   const placeShipContainer = document.createElement("div");
   placeShipContainer.classList.add("add-ship-container");
 
+  displayGame(player1);
+  formatShipChoiceGrids(player1);
   placeShipContainer.appendChild(
     locationPrompt(shipTypes[shipTypes.length - 1])
   );
-  displayGame(player);
-  formatShipChoiceGrids(player);
   placeShipContainer.appendChild(displayDirectionForm());
 
   const computerSection = document.querySelector(".computer-section");
   computerSection.appendChild(placeShipContainer);
-
-  formatSubmitBtn();
 };
 
 const displayWinner = function displayTheGivenPlayerObjAsWinner(player) {
@@ -213,4 +171,10 @@ const displayWinner = function displayTheGivenPlayerObjAsWinner(player) {
   gameHeader.appendChild(winner);
 };
 
-export { displayGame, clearGame, displayWinner, displayChooseShip };
+export {
+  displayGame,
+  clearGame,
+  displayWinner,
+  displayChooseShip,
+  locationPrompt,
+};
