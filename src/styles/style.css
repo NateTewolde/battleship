@@ -33,8 +33,15 @@ body {
 .player-section {
   flex: 1;
   display: flex;
+  flex-direction: column;
+  text-align: center;
   height: 100%;
   padding: 64px;
+}
+
+.gameboard-header {
+  font-size: 2rem;
+  font-weight: 500;
 }
 
 .gameboard {
@@ -69,4 +76,8 @@ body {
 
 .missed {
   background-color: #3b82f6;
+}
+
+.placement-location {
+  background-color: limegreen;
 }
