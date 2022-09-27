@@ -1,4 +1,3 @@
-import { expect } from "expect";
 import Gameboard from "../src/gameboard-manager";
 import Ship from "../src/ship-manager";
 
@@ -10,7 +9,7 @@ test("10x10 Gameboard created", () => {
 
 test("Gameboard.placeShip() works at inital coordinate", () => {
   const myGameboard = Gameboard();
-  myGameboard.placeShip(4, 1, "left", Ship(3));
+  myGameboard.placeShip(4, 2, "left", Ship(3));
   const gameboard = myGameboard.getBoard();
   expect(gameboard[4][1]).toMatchObject({
     length: 3,
@@ -25,7 +24,7 @@ test("Gameboard.placeShip() works at inital coordinate", () => {
 
 test("Ship.length gets the correct length", () => {
   const myGameboard = Gameboard();
-  myGameboard.placeShip(4, 1, "left", Ship(4));
+  myGameboard.placeShip(4, 3, "left", Ship(4));
   const gameboard = myGameboard.getBoard();
 
   expect(gameboard[4][1].length).toBe(4);
@@ -50,15 +49,15 @@ describe("Gameboard.placeShip() places ship in correct direction", () => {
 
   test("Places ship right", () => {
     const myGameboard = Gameboard();
-    myGameboard.placeShip(4, 7, "right", Ship(5));
+    myGameboard.placeShip(4, 5, "right", Ship(5));
     const gameboard = myGameboard.getBoard();
-    gameboard[4][7].hit(2);
-    expect(gameboard[4][7]).toMatchObject({
+    gameboard[4][5].hit(2);
+    expect(gameboard[4][5]).toMatchObject({
       length: 5,
       damaged: [false, false, true, false, false],
     });
 
-    expect(gameboard[4][8]).toMatchObject({
+    expect(gameboard[4][6]).toMatchObject({
       length: 5,
       damaged: [false, false, true, false, false],
     });
@@ -169,6 +168,7 @@ test("Gameboard.areAllSunk() checks if all ships are sunk correctly", () => {
 
   expect(myGameboard.areAllSunk()).toBe(true);
 });
+
 describe("Gameboard.wasNewShipValid() works correctly", () => {
   test("Gameboard.wasNewShipValid() makes sure ships dont overlap", () => {
     const playersGameboard = Gameboard();
@@ -189,14 +189,18 @@ describe("Gameboard.wasNewShipValid() works correctly", () => {
 
   test("Gameboard.wasNewShipValid makes sure ships dont go out of bounds", () => {
     const playersGameboard = Gameboard();
-    playersGameboard.placeShip(5, 9, "left", Ship(5));
-    expect(playersGameboard.wasNewShipValid()).toBe(true);
+
     playersGameboard.placeShip(1, 9, "right", Ship(5));
     expect(playersGameboard.wasNewShipValid()).toBe(false);
     playersGameboard.placeShip(1, 9, "right", Ship(1));
     expect(playersGameboard.wasNewShipValid()).toBe(true);
 
-    playersGameboard.placeShip(5, 1, "up", Ship(5));
+    playersGameboard.placeShip(9, 1, "left", Ship(5));
+    expect(playersGameboard.wasNewShipValid()).toBe(false);
+    playersGameboard.placeShip(9, 1, "left", Ship(2));
+    expect(playersGameboard.wasNewShipValid()).toBe(true);
+
+    playersGameboard.placeShip(5, 2, "up", Ship(5));
     expect(playersGameboard.wasNewShipValid()).toBe(true);
     playersGameboard.placeShip(9, 3, "up", Ship(5));
     expect(playersGameboard.wasNewShipValid()).toBe(false);
