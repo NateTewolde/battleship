@@ -11,19 +11,8 @@ import { setAttack, checkForWinner } from "./game-manager";
 import "./styles/style.css";
 
 // Steps to finish:
-//  - dont allow ships to overlap:
-//    - make it so that Placeship() only gets the coordinates first, then
-//    - if the coordinates dont have any matching with any other one in
-//    - ships, and it doesnt make it go out of bounds
-//    - then it can then go through and add the ship to that grid.
-//    - how to validate this tho..
-//    - maybe have a isShipValid() array, if its valid it pushes
-//    - true, if its not then it pushes false, which dom-manager
-//    - or whatever can see that the last entry was false so
-//    - the ship is no good. use js form validation
-//    - this can also be used to get valid slots.
+//    - if overlap/out of bounds use js form validation
 
-//    - make computer choose random ship slots
 //    - add max grid sizes in css, design and make look nice because last vanilla JS project
 const shipTypes = [
   ["Patrol Boat", 2],
@@ -36,11 +25,11 @@ const shipTypes = [
 const humanPlayer = Player(Gameboard());
 const computerPlayer = Player(Gameboard(), true);
 
-computerPlayer.gameboard.placeShip(4, 1, "up", Ship(5));
-computerPlayer.gameboard.placeShip(8, 7, "down", Ship(4));
-computerPlayer.gameboard.placeShip(0, 8, "left", Ship(3));
-computerPlayer.gameboard.placeShip(2, 3, "right", Ship(2));
-computerPlayer.gameboard.placeShip(9, 4, "left", Ship(1));
+computerPlayer.gameboard.placeRandomShip(Ship(5));
+computerPlayer.gameboard.placeRandomShip(Ship(4));
+computerPlayer.gameboard.placeRandomShip(Ship(3));
+computerPlayer.gameboard.placeRandomShip(Ship(3));
+computerPlayer.gameboard.placeRandomShip(Ship(2));
 
 const formatGrids = function formatGridsToRunGame(player1, player2) {
   const grids = document.querySelectorAll(".computer");
@@ -61,6 +50,14 @@ const formatGrids = function formatGridsToRunGame(player1, player2) {
       formatGrids(player1, player2);
     })
   );
+};
+const chooseShips = function createAndDisplayPlayerShipChoosing() {
+  displayChooseShip(humanPlayer, shipTypes);
+
+  // eslint-disable-next-line no-use-before-define
+  formatSubmitBtn(humanPlayer);
+  // eslint-disable-next-line no-use-before-define
+  formatRandomBtn(humanPlayer);
 };
 
 const formatSubmitBtn = function formatsDirectionSubmitButton(player) {
@@ -84,7 +81,6 @@ const formatSubmitBtn = function formatsDirectionSubmitButton(player) {
     if (player.gameboard.wasNewShipValid()) {
       shipTypes.pop();
     }
-
     clearGame();
     if (shipTypes.length === 0) {
       displayGame(humanPlayer, computerPlayer);
@@ -92,22 +88,24 @@ const formatSubmitBtn = function formatsDirectionSubmitButton(player) {
       return;
     }
 
-    displayChooseShip(player, shipTypes);
-    formatSubmitBtn(player);
+    chooseShips();
   });
 };
-// Helper function that returns a random number between and including a mix/max
-const randomInt = function getRandomIntInclusive() {
-  const setMin = 0;
-  const setMax = 9;
-  const min = Math.ceil(setMin);
-  const max = Math.floor(setMax);
-  return Math.floor(Math.random() * (max - min + 1) + min);
+
+const formatRandomBtn = function randomBtnWillPlaceShipRandomly(player) {
+  const randomBtn = document.querySelector(".random-form-btn");
+  randomBtn.addEventListener("click", () => {
+    player.gameboard.placeRandomShip(Ship(shipTypes[shipTypes.length - 1][1]));
+    shipTypes.pop();
+    clearGame();
+    if (shipTypes.length === 0) {
+      displayGame(humanPlayer, computerPlayer);
+      formatGrids(humanPlayer, computerPlayer);
+      return;
+    }
+
+    chooseShips();
+  });
 };
 
-const randomComputerShips = function getRandomValidComputerShips() {
-  computerPlayer.gameboard.placeShip(randomInt(), randomInt(), "left", Ship(1));
-};
-
-displayChooseShip(humanPlayer, shipTypes);
-formatSubmitBtn(humanPlayer);
+chooseShips();
