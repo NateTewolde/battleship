@@ -2,29 +2,54 @@ const Gameboard = () => {
   const gameboard = [[], [], [], [], [], [], [], [], [], []];
   const getBoard = () => gameboard;
   const ships = [];
+  const shipValidity = [];
+
+  const wasNewShipValid = () => shipValidity[shipValidity.length - 1];
+
+  const populateShipsGrids = (shipCoords, ship) => {
+    shipCoords.forEach((element) => {
+      const [col, row] = element.split(",");
+      gameboard[col][row] = ship;
+    });
+  };
+
+  // check if newShipInfo matches any other ships coords
+  const checkNewShipValidity = (newShipInfo) => {
+    const found = ships.some((ship) =>
+      ship.some((coord) => newShipInfo.includes(coord))
+    );
+
+    if (found) {
+      shipValidity.push(false);
+      return;
+    }
+    shipValidity.push(true);
+  };
 
   const placeShip = (col, row, direction, ship) => {
     const newShipInfo = [];
 
     for (let i = 0; i < ship.length; i++) {
       if (direction === "left") {
-        gameboard[col][row - i] = ship;
         newShipInfo.push(`${col},${row - i}`);
       }
       if (direction === "right") {
-        gameboard[col][row + i] = ship;
         newShipInfo.push(`${col},${row + i}`);
       }
       if (direction === "down") {
-        gameboard[col - i][row] = ship;
         newShipInfo.push(`${col - i},${row}`);
       }
       if (direction === "up") {
-        gameboard[col + i][row] = ship;
         newShipInfo.push(`${col + i},${row}`);
       }
     }
 
+    checkNewShipValidity(newShipInfo);
+    const isValid = wasNewShipValid();
+
+    if (isValid) {
+      populateShipsGrids(newShipInfo.slice(0), ship);
+    }
     newShipInfo.push(ship);
     ships.push(newShipInfo);
   };
@@ -62,6 +87,7 @@ const Gameboard = () => {
     missedShots,
     hitShots,
     areAllSunk,
+    wasNewShipValid,
   };
 };
 
