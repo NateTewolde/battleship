@@ -15,11 +15,19 @@ const Gameboard = () => {
 
   // check if newShipInfo matches any other ships coords
   const checkNewShipValidity = (newShipInfo) => {
-    const found = ships.some((ship) =>
+    const foundOverlap = ships.some((ship) =>
       ship.some((coord) => newShipInfo.includes(coord))
     );
 
-    if (found) {
+    const foundOutOfBounds = newShipInfo.some((coords) => {
+      const [col, row] = coords.split(",");
+      if (col > 9 || col < 0 || row > 9 || row < 0) {
+        return true;
+      }
+      return false;
+    });
+
+    if (foundOverlap || foundOutOfBounds) {
       shipValidity.push(false);
       return;
     }
