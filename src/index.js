@@ -80,13 +80,15 @@ const formatSubmitBtn = function formatsDirectionSubmitButton(player) {
       directionChoice.toLowerCase(),
       Ship(shipTypes[shipTypes.length - 1][1])
     );
-    shipTypes.pop();
+
+    if (player.gameboard.wasNewShipValid()) {
+      shipTypes.pop();
+    }
 
     clearGame();
     if (shipTypes.length === 0) {
       displayGame(humanPlayer, computerPlayer);
       formatGrids(humanPlayer, computerPlayer);
-
       return;
     }
 
