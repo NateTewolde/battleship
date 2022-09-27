@@ -121,6 +121,13 @@ const displayDirectionForm =
     submitBtn.setAttribute("type", "button");
     submitBtn.textContent = "Submit";
     directionForm.appendChild(submitBtn);
+
+    const randomBtn = document.createElement("button");
+    randomBtn.classList.add("random-form-btn");
+    randomBtn.setAttribute("type", "button");
+    randomBtn.textContent = "Random";
+    directionForm.appendChild(randomBtn);
+
     return directionForm;
   };
 
