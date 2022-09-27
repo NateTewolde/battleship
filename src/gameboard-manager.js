@@ -63,6 +63,37 @@ const Gameboard = () => {
     ships.push(newShipInfo);
   };
 
+  // Helper function that returns a random number between and including a mix/max
+  const randomInt = function getRandomIntInclusive(setMin, setMax) {
+    const min = Math.ceil(setMin);
+    const max = Math.floor(setMax);
+    return Math.floor(Math.random() * (max - min + 1) + min);
+  };
+
+  const placeRandomShip = function placeRandomValidShip(ship) {
+    const cols = [randomInt(0, 9)];
+    const rows = [randomInt(0, 9)];
+    const randDirect = [randomInt(0, 3)];
+    const directions = ["left", "right", "up", "down"];
+    const condition = true;
+
+    while (condition) {
+      placeShip(
+        cols[cols.length - 1],
+        rows[rows.length - 1],
+        directions[randDirect.length - 1],
+        ship
+      );
+      cols.push(randomInt(0, 9));
+      rows.push(randomInt(0, 9));
+      randDirect.push(randomInt(0, 3));
+      const isValid = wasNewShipValid();
+      if (isValid) {
+        break;
+      }
+    }
+  };
+
   const missedShots = [];
   const hitShots = [];
 
@@ -97,6 +128,7 @@ const Gameboard = () => {
     hitShots,
     areAllSunk,
     wasNewShipValid,
+    placeRandomShip,
   };
 };
 
