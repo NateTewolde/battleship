@@ -47,9 +47,10 @@ const Gameboard = () => {
     checkNewShipValidity(newShipInfo);
     const isValid = wasNewShipValid();
 
-    if (isValid) {
-      populateShipsGrids(newShipInfo.slice(0), ship);
+    if (!isValid) {
+      return;
     }
+    populateShipsGrids(newShipInfo.slice(0), ship);
     newShipInfo.push(ship);
     ships.push(newShipInfo);
   };
