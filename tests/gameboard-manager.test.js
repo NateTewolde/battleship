@@ -1,4 +1,3 @@
-import { expect } from "expect";
 import Gameboard from "../src/gameboard-manager";
 import Ship from "../src/ship-manager";
 
@@ -148,7 +147,6 @@ describe("Gamebooard.receiveAttack() works correctly", () => {
 
 test("Gameboard.areAllSunk() checks if all ships are sunk correctly", () => {
   const myGameboard = Gameboard();
-  const gameboard = myGameboard.getBoard();
 
   // places ship at x,y coordinates (4,7), (4,8), (4,9)
   myGameboard.placeShip(4, 7, "down", Ship(3));
@@ -169,4 +167,15 @@ test("Gameboard.areAllSunk() checks if all ships are sunk correctly", () => {
   myGameboard.receiveAttack(2, 3);
 
   expect(myGameboard.areAllSunk()).toBe(true);
+});
+
+test("Gameboard.wasNewShipValid() works correctly", () => {
+  const playersGameboard = Gameboard();
+
+  playersGameboard.placeShip(8, 2, "right", Ship(2));
+  expect(playersGameboard.wasNewShipValid()).toBe(true);
+  playersGameboard.placeShip(8, 2, "right", Ship(2));
+  expect(playersGameboard.wasNewShipValid()).toBe(false);
+  playersGameboard.placeShip(7, 2, "right", Ship(2));
+  expect(playersGameboard.wasNewShipValid()).toBe(true);
 });
