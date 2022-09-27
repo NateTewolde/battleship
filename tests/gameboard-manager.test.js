@@ -1,3 +1,4 @@
+import { expect } from "expect";
 import Gameboard from "../src/gameboard-manager";
 import Ship from "../src/ship-manager";
 
@@ -168,14 +169,45 @@ test("Gameboard.areAllSunk() checks if all ships are sunk correctly", () => {
 
   expect(myGameboard.areAllSunk()).toBe(true);
 });
+describe("Gameboard.wasNewShipValid() works correctly", () => {
+  test("Gameboard.wasNewShipValid() makes sure ships dont overlap", () => {
+    const playersGameboard = Gameboard();
+    playersGameboard.placeShip(8, 2, "right", Ship(2));
+    expect(playersGameboard.wasNewShipValid()).toBe(true);
+    playersGameboard.placeShip(8, 2, "right", Ship(2));
+    expect(playersGameboard.wasNewShipValid()).toBe(false);
+    playersGameboard.placeShip(7, 2, "right", Ship(2));
+    expect(playersGameboard.wasNewShipValid()).toBe(true);
 
-test("Gameboard.wasNewShipValid() works correctly", () => {
-  const playersGameboard = Gameboard();
+    playersGameboard.placeShip(2, 1, "right", Ship(5));
+    expect(playersGameboard.wasNewShipValid()).toBe(true);
+    playersGameboard.placeShip(1, 5, "up", Ship(5));
+    expect(playersGameboard.wasNewShipValid()).toBe(false);
+    playersGameboard.placeShip(4, 3, "right", Ship(5));
+    expect(playersGameboard.wasNewShipValid()).toBe(true);
+  });
 
-  playersGameboard.placeShip(8, 2, "right", Ship(2));
-  expect(playersGameboard.wasNewShipValid()).toBe(true);
-  playersGameboard.placeShip(8, 2, "right", Ship(2));
-  expect(playersGameboard.wasNewShipValid()).toBe(false);
-  playersGameboard.placeShip(7, 2, "right", Ship(2));
-  expect(playersGameboard.wasNewShipValid()).toBe(true);
+  test("Gameboard.wasNewShipValid makes sure ships dont go out of bounds", () => {
+    const playersGameboard = Gameboard();
+    playersGameboard.placeShip(5, 9, "left", Ship(5));
+    expect(playersGameboard.wasNewShipValid()).toBe(true);
+    playersGameboard.placeShip(1, 9, "right", Ship(5));
+    expect(playersGameboard.wasNewShipValid()).toBe(false);
+    playersGameboard.placeShip(1, 9, "right", Ship(1));
+    expect(playersGameboard.wasNewShipValid()).toBe(true);
+
+    playersGameboard.placeShip(5, 1, "up", Ship(5));
+    expect(playersGameboard.wasNewShipValid()).toBe(true);
+    playersGameboard.placeShip(9, 3, "up", Ship(5));
+    expect(playersGameboard.wasNewShipValid()).toBe(false);
+    playersGameboard.placeShip(5, 3, "up", Ship(1));
+    expect(playersGameboard.wasNewShipValid()).toBe(true);
+
+    playersGameboard.placeShip(4, 1, "down", Ship(5));
+    expect(playersGameboard.wasNewShipValid()).toBe(true);
+    playersGameboard.placeShip(2, 2, "down", Ship(5));
+    expect(playersGameboard.wasNewShipValid()).toBe(false);
+    playersGameboard.placeShip(4, 2, "down", Ship(5));
+    expect(playersGameboard.wasNewShipValid()).toBe(true);
+  });
 });
