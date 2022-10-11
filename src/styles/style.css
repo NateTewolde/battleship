@@ -4,7 +4,9 @@
   margin: 0;
   padding: 0;
 }
-
+html {
+  overflow: hidden;
+}
 body {
   background-color: lavender;
   height: 100vh;
@@ -13,13 +15,10 @@ body {
 }
 
 #content {
-  display: grid;
-  grid-template-rows: 1fr 8fr 1fr;
 }
 
 .game-header {
-  display: flex;
-  justify-content: center;
+  text-align: center;
   color: #7c3aed;
   font-size: 4rem;
   font-weight: 500;
@@ -27,6 +26,7 @@ body {
 
 .gameboard-section {
   display: flex;
+  flex-direction: column;
 }
 
 .computer-section,
@@ -36,17 +36,15 @@ body {
   flex-direction: column;
   text-align: center;
   height: 100%;
-  padding: 64px;
 }
-
+/*add rocks background image around grid so its like ships
+hidden amongst the rocks cant see eachother but firing*/
 .gameboard-header {
   font-size: 2rem;
   font-weight: 500;
 }
 
 .gameboard {
-  flex: 1;
-  max-width: 60%;
   display: flex;
   flex-direction: column-reverse;
   justify-content: center;
@@ -86,3 +84,12 @@ body {
 .placement-location {
   background-color: limegreen;
 }
+
+/* stuff for media quieries: 
+player section: 
+  padding: 64px;
+  
+  
+  
+  
+  */
