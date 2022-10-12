@@ -16,15 +16,11 @@ const displayBoard = function displayPlayerGameBoard(player) {
   for (let i = 0; i < gameboard.length; i++) {
     const row = document.createElement("div");
     row.classList.add("row");
-    row.textContent = `${i}`;
 
     for (let j = 0; j < 10; j++) {
       const grid = document.createElement("div");
       grid.classList.add("grid");
       grid.setAttribute("data-grid-id", `${i},${j}`);
-      if (i === 0) {
-        grid.textContent = `${j}`;
-      }
 
       if (gameboard[i][j] != null) {
         grid.classList.add("ship");
@@ -72,7 +68,7 @@ const locationPrompt = function promptUserForLocationPlacement(shipType) {
   const addShipPrompt = document.createElement("div");
   addShipPrompt.classList.add("add-ship-prompt");
 
-  addShipPrompt.textContent = `Choose ${shipType[0]} location (length ${shipType[1]}).`;
+  addShipPrompt.textContent = `Choose ${shipType[0]} location (length ${shipType[1]})`;
 
   return addShipPrompt;
 };
