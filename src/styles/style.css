@@ -1,16 +1,24 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap");
-
 @font-face {
   font-family: space-font;
   src: url(./Space-Game-Font.otf);
 }
+
+/* 
+Ideas:
+-fire-glowy-animation for .hit
+-"space" cloud animation around gameboard, grid is same color, 
+-find simple image for ship, or something to make the ships lookk interesting
+- flashing You win when won.
+*/
 
 * {
   margin: 0;
   padding: 0;
 }
 
-html {
+html,
+body {
   overflow: hidden;
 }
 
@@ -26,14 +34,22 @@ html {
 .add-ship-container {
   color: #bef264;
   text-align: center;
-  border: 2px solid #c4b5fd;
   border-radius: 16px;
   padding: 24px;
   width: clamp(100px, 50%, 700px);
 }
 
+.computer-section:has(.add-ship-container) {
+  height: 100%;
+}
+
 .add-ship-prompt {
   font-size: 1.3rem;
+}
+
+.add-ship-container button {
+  background: green;
+  border: 2px solid green;
 }
 
 .game-header {
@@ -42,9 +58,53 @@ html {
   color: #84cc16;
   font-size: 4rem;
   font-weight: 500;
+  padding-top: 16px;
 }
 
-.glow {
+.gameboard-section {
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  align-items: center;
+}
+
+.computer-section,
+.player-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+}
+
+.gameboard-header {
+  font-size: 1.5rem;
+  font-weight: 400;
+  color: #bef264;
+}
+
+.gameboard {
+  display: flex;
+  flex-direction: column-reverse;
+  justify-content: center;
+  padding: 8px;
+  width: clamp(100px, 50%, 700px);
+}
+
+.row {
+  display: flex;
+}
+
+.grid {
+  flex-grow: 0;
+  border: 1px solid #84cc16;
+  width: 100%;
+  height: 0;
+  padding-top: 10%;
+  background-color: transparent;
+  box-sizing: border-box;
+}
+
+.gameboard {
   text-align: center;
   -webkit-animation: glow 1s ease-in-out infinite alternate;
   -moz-animation: glow 1s ease-in-out infinite alternate;
@@ -62,47 +122,6 @@ html {
   }
 }
 
-.gameboard-section {
-  display: grid;
-  grid-template-rows: 1fr 1fr;
-  align-items: center;
-}
-
-.computer-section,
-.player-section {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.gameboard-header {
-  font-size: 1.5rem;
-  font-weight: 400;
-  color: #bef264;
-}
-
-.gameboard {
-  display: flex;
-  flex-direction: column-reverse;
-  justify-content: center;
-  padding: 24px;
-  background-color: #c4b5fd;
-  width: clamp(100px, 50%, 700px);
-}
-.row {
-  display: flex;
-}
-
-.grid {
-  flex-grow: 0;
-  border: 1px solid black;
-  width: 100%;
-  height: 0;
-  padding-top: 10%;
-  background-color: white;
-  box-sizing: border-box;
-}
-
 .ship {
   background-color: #7c3aed;
 }
@@ -116,7 +135,7 @@ html {
 }
 
 .missed {
-  background-color: #3b82f6;
+  background-color: transparent;
 }
 
 .placement-location {
@@ -130,20 +149,25 @@ html {
   position: absolute;
   right: 0;
   top: 0;
+  overflow: hidden;
 }
 
 @keyframes space {
   40% {
     opacity: 0.75;
+    overflow: hidden;
   }
   50% {
     opacity: 0.25;
+    overflow: hidden;
   }
   60% {
     opacity: 0.75;
+    overflow: hidden;
   }
   100% {
     transform: rotate(360deg);
+    overflow: hidden;
   }
 }
 
@@ -159,6 +183,7 @@ html {
     radial-gradient(1.5px 1.5px at 50px 75px, white, rgba(255, 255, 255, 0)),
     radial-gradient(2px 2px at 15px 125px, white, rgba(255, 255, 255, 0)),
     radial-gradient(2.5px 2.5px at 110px 80px, white, rgba(255, 255, 255, 0));
+  overflow: hidden;
 }
 .stars2 {
   animation: space 240s ease-in-out infinite;
@@ -172,6 +197,7 @@ html {
     radial-gradient(2px 2px at 20px 50px, white, rgba(255, 255, 255, 0)),
     radial-gradient(2.5px 2.5px at 100px 5px, white, rgba(255, 255, 255, 0)),
     radial-gradient(2.5px 2.5px at 5px 5px, white, rgba(255, 255, 255, 0));
+  overflow: hidden;
 }
 .stars3 {
   animation: space 300s ease-in-out infinite;
@@ -185,6 +211,7 @@ html {
     radial-gradient(1.5px 1.5px at 175px 180px, white, rgba(255, 255, 255, 0)),
     radial-gradient(2px 2px at 195px 95px, white, rgba(255, 255, 255, 0)),
     radial-gradient(2.5px 2.5px at 95px 145px, white, rgba(255, 255, 255, 0));
+  overflow: hidden;
 }
 
 /* 
