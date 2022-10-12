@@ -48,11 +48,11 @@ const displayGame = function displayTheGame(player1, player2) {
 
   const playerHeader = document.createElement("div");
   playerHeader.classList.add("gameboard-header");
-  playerHeader.textContent = "Your Board";
+  playerHeader.textContent = "Your Fleet";
 
   const computerHeader = document.createElement("div");
   computerHeader.classList.add("gameboard-header");
-  computerHeader.textContent = "Enemy's Board";
+  computerHeader.textContent = "Enemy's Fleet";
 
   playerSection.appendChild(playerHeader);
   playerSection.appendChild(displayBoard(player1));
