@@ -115,18 +115,18 @@ const displayDirectionForm =
     const btnsContainer = document.createElement("div");
     btnsContainer.classList.add("btns-container");
 
+    const randomBtn = document.createElement("button");
+    randomBtn.classList.add("random-form-btn");
+    randomBtn.setAttribute("type", "button");
+    randomBtn.textContent = "Random";
+    btnsContainer.appendChild(randomBtn);
+
     const submitBtn = document.createElement("button");
     submitBtn.classList.add("submit-form-btn");
     submitBtn.setAttribute("type", "button");
     submitBtn.textContent = "Submit";
     btnsContainer.appendChild(submitBtn);
 
-    const randomBtn = document.createElement("button");
-    randomBtn.classList.add("random-form-btn");
-    randomBtn.setAttribute("type", "button");
-    randomBtn.textContent = "Random";
-
-    btnsContainer.appendChild(randomBtn);
     directionForm.appendChild(btnsContainer);
 
     return directionForm;
