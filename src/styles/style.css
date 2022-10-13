@@ -32,11 +32,15 @@ body {
 }
 
 .add-ship-container {
-  color: #bef264;
+  display: grid;
+  grid-template-rows: max-content 1fr;
+  row-gap: 16px;
+  height: 100%;
+  width: clamp(100px, 50%, 700px);
+  color: #d9f99d;
   text-align: center;
   border-radius: 16px;
   padding: 24px;
-  width: clamp(100px, 50%, 700px);
 }
 
 .computer-section:has(.add-ship-container) {
@@ -47,15 +51,39 @@ body {
   font-size: 1.3rem;
 }
 
+#direction {
+  color: green;
+  background-color: transparent;
+  border: none;
+  font-size: 1.5rem;
+}
+
 .add-ship-container button {
-  background: green;
-  border: 2px solid green;
+  color: green;
+  background: transparent;
+  border: 1px solid green;
+  border-radius: 16px;
+  padding: 4px 8px;
+  font-size: 1.4rem;
+}
+
+.add-ship-container label {
+  font-size: 1.3rem;
+}
+
+.btns-container {
+  display: flex;
+  padding-top: 18px;
+  justify-content: space-evenly;
 }
 
 .game-header {
   font-family: space-font, "Roboto", sans-serif;
   text-align: center;
-  color: #84cc16;
+  color: #a3e635;
+  text-shadow: 0 0 7px #a3e635, 0 0 15px #a3e635, 0 0 21px #a3e635,
+    0 0 42px #84cc16, 0 0 84px #84cc16, 0 0 102px #84cc16;
+
   font-size: 4rem;
   font-weight: 500;
   padding-top: 16px;
@@ -79,7 +107,7 @@ body {
 .gameboard-header {
   font-size: 1.5rem;
   font-weight: 400;
-  color: #bef264;
+  color: #d9f99d;
 }
 
 .gameboard {
@@ -104,7 +132,8 @@ body {
   box-sizing: border-box;
 }
 
-.gameboard {
+.add-ship-prompt,
+label {
   text-align: center;
   -webkit-animation: glow 1s ease-in-out infinite alternate;
   -moz-animation: glow 1s ease-in-out infinite alternate;
@@ -113,12 +142,13 @@ body {
 
 @-webkit-keyframes glow {
   from {
-    text-shadow: 0 0 10px #dff7da, 0 0 20px #dff7da, 0 0 30px #a3e635,
-      0 0 40px #a3e635, 0 0 50px #a3e635, 0 0 60px #a3e635, 0 0 70px #a3e635;
+    text-shadow: 0 0 1px #d9f99d, 0 0 1px #d9f99d, 0 0 1px #84cc16,
+      0 0 1px #84cc16, 0 0 1px #84cc16;
   }
+
   to {
-    text-shadow: 0 0 20px #dff7da, 0 0 30px #bef264, 0 0 40px #bef264,
-      0 0 50px #bef264, 0 0 60px #bef264, 0 0 70px #bef264, 0 0 80px #bef264;
+    text-shadow: 0 0 2px #d9f99d, 0 0 4px #a3e635, 0 0 6px #a3e635,
+      0 0 8px #a3e635, 0 0 10px #a3e635, 0 0 10px #a3e635;
   }
 }
 
