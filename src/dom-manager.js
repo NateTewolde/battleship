@@ -88,7 +88,7 @@ const displayDirectionForm =
 
     const directionLabel = document.createElement("label");
     directionLabel.setAttribute("for", "direction");
-    directionLabel.textContent = "Ship direction?\n";
+    directionLabel.textContent = "Choose direction\n";
     const directionSelect = document.createElement("select");
     directionSelect.setAttribute("id", "direction");
     const directionOptionRight = document.createElement("option");
@@ -112,17 +112,22 @@ const displayDirectionForm =
     directionField.appendChild(directionSelect);
     directionForm.appendChild(directionField);
 
+    const btnsContainer = document.createElement("div");
+    btnsContainer.classList.add("btns-container");
+
     const submitBtn = document.createElement("button");
     submitBtn.classList.add("submit-form-btn");
     submitBtn.setAttribute("type", "button");
     submitBtn.textContent = "Submit";
-    directionForm.appendChild(submitBtn);
+    btnsContainer.appendChild(submitBtn);
 
     const randomBtn = document.createElement("button");
     randomBtn.classList.add("random-form-btn");
     randomBtn.setAttribute("type", "button");
     randomBtn.textContent = "Random";
-    directionForm.appendChild(randomBtn);
+
+    btnsContainer.appendChild(randomBtn);
+    directionForm.appendChild(btnsContainer);
 
     return directionForm;
   };
