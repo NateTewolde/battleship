@@ -41,6 +41,7 @@ body {
   text-align: center;
   border-radius: 16px;
   padding: 24px;
+  justify-content: center;
 }
 
 .computer-section:has(.add-ship-container) {
@@ -51,20 +52,34 @@ body {
   font-size: 1.3rem;
 }
 
+#new_direction_form {
+  display: grid;
+  grid-template-rows: min-content, 1fr;
+}
+
 #direction {
-  color: green;
+  color: #bef264;
+  text-align: center;
+  text-shadow: 0 0 7px #a3e635;
   background-color: transparent;
   border: none;
   font-size: 1.5rem;
 }
 
+#direction option {
+  background-color: black;
+  border: none;
+}
+
 .add-ship-container button {
-  color: green;
+  color: #bef264;
+  box-shadow: 0 0 7px #a3e635, 0 0 15px #a3e635;
   background: transparent;
-  border: 1px solid green;
+  border: 1px solid #a3e635;
   border-radius: 16px;
-  padding: 4px 8px;
   font-size: 1.4rem;
+  font-weight: 700;
+  padding: 4px 8px;
 }
 
 .add-ship-container label {
@@ -75,6 +90,8 @@ body {
   display: flex;
   padding-top: 18px;
   justify-content: space-evenly;
+  height: min-content;
+  gap: 16px;
 }
 
 .game-header {
@@ -83,7 +100,6 @@ body {
   color: #a3e635;
   text-shadow: 0 0 7px #a3e635, 0 0 15px #a3e635, 0 0 21px #a3e635,
     0 0 42px #84cc16, 0 0 84px #84cc16, 0 0 102px #84cc16;
-
   font-size: 4rem;
   font-weight: 500;
   padding-top: 16px;
@@ -114,8 +130,10 @@ body {
   display: flex;
   flex-direction: column-reverse;
   justify-content: center;
-  padding: 8px;
+  padding: 3px;
+  margin-top: 8px;
   width: clamp(100px, 50%, 700px);
+  box-shadow: 0 0 10px #a3e635, 0 0 20px #ecfccb, 0 0 40px #ecfccb;
 }
 
 .row {
@@ -130,34 +148,40 @@ body {
   padding-top: 10%;
   background-color: transparent;
   box-sizing: border-box;
+  box-shadow: inset 0 0 20px #a3e635;
 }
 
 .add-ship-prompt,
 label {
+  text-shadow: 0 0 5px #bef264, 0 0 10px #84cc16, 0 0 15px #84cc16,
+    0 0 20px #84cc16;
   text-align: center;
-  -webkit-animation: glow 1s ease-in-out infinite alternate;
-  -moz-animation: glow 1s ease-in-out infinite alternate;
-  animation: glow 1s ease-in-out infinite alternate;
+  -webkit-animation: glow 1s ease-in-out 4 alternate;
+  -moz-animation: glow 1s ease-in-out 4 alternate;
+  animation: glow 1s ease-in-out 4 alternate;
 }
 
 @-webkit-keyframes glow {
   from {
-    text-shadow: 0 0 1px #d9f99d, 0 0 1px #d9f99d, 0 0 1px #84cc16,
-      0 0 1px #84cc16, 0 0 1px #84cc16;
+    text-shadow: 0 0 5px #bef264, 0 0 10px #84cc16, 0 0 15px #84cc16,
+      0 0 20px #84cc16;
   }
 
   to {
-    text-shadow: 0 0 2px #d9f99d, 0 0 4px #a3e635, 0 0 6px #a3e635,
-      0 0 8px #a3e635, 0 0 10px #a3e635, 0 0 10px #a3e635;
+    text-shadow: 0 0 2px #bef264, 0 0 4px #a3e635, 0 0 8px #a3e635,
+      0 0 10px #a3e635, 0 0 20px #a3e635, 0 0 40px #a3e635, 0 0 60px #a3e635;
   }
 }
 
-.ship {
-  background-color: #7c3aed;
+.ship:not(.computer),
+.hit,
+.missed,
+.placement-location {
+  box-shadow: none;
 }
 
-.computer {
-  background-color: white;
+.ship:not(.computer) {
+  background-color: #7c3aed;
 }
 
 .hit {
