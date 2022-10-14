@@ -31,6 +31,7 @@ const Gameboard = () => {
       shipValidity.push(false);
       return;
     }
+
     shipValidity.push(true);
   };
 
@@ -54,7 +55,6 @@ const Gameboard = () => {
 
     checkNewShipValidity(newShipInfo);
     const isValid = wasNewShipValid();
-
     if (!isValid) {
       return;
     }
@@ -71,22 +71,16 @@ const Gameboard = () => {
   };
 
   const placeRandomShip = function placeRandomValidShip(ship) {
-    const cols = [randomInt(0, 9)];
-    const rows = [randomInt(0, 9)];
-    const randDirect = [randomInt(0, 3)];
     const directions = ["left", "right", "up", "down"];
     const condition = true;
 
     while (condition) {
       placeShip(
-        cols[cols.length - 1],
-        rows[rows.length - 1],
-        directions[randDirect.length - 1],
+        randomInt(0, 9),
+        randomInt(0, 9),
+        directions[randomInt(0, 3)],
         ship
       );
-      cols.push(randomInt(0, 9));
-      rows.push(randomInt(0, 9));
-      randDirect.push(randomInt(0, 3));
       const isValid = wasNewShipValid();
       if (isValid) {
         break;
@@ -129,6 +123,7 @@ const Gameboard = () => {
     areAllSunk,
     wasNewShipValid,
     placeRandomShip,
+    ships,
   };
 };
 
