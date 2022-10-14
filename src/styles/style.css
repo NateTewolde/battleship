@@ -3,6 +3,10 @@
   font-family: space-font;
   src: url(./Space-Game-Font.otf);
 }
+@font-face {
+  font-family: robot-font;
+  src: url(./Classic-Robot-Font.ttf);
+}
 
 /* 
 Ideas:
@@ -121,9 +125,10 @@ body {
 }
 
 .gameboard-header {
-  font-size: 1.6rem;
+  font-size: 1.8rem;
   font-weight: 400;
   color: #a3e635;
+  font-family: robot-font, "Roboto", sans-serif;
 }
 
 .gameboard {
@@ -153,18 +158,17 @@ body {
 
 .add-ship-prompt,
 label {
-  text-shadow: 0 0 5px #bef264, 0 0 10px #84cc16, 0 0 15px #84cc16,
-    0 0 20px #84cc16;
+  color: #fff;
+  text-shadow: 0 0 10px #84cc16, 0 0 15px #84cc16, 0 0 20px #84cc16;
   text-align: center;
-  -webkit-animation: glow 1s ease-in-out 4 alternate;
-  -moz-animation: glow 1s ease-in-out 4 alternate;
-  animation: glow 1s ease-in-out 4 alternate;
+  -webkit-animation: glow 0.5s ease-in-out 4 alternate;
+  -moz-animation: glow 0.5s ease-in-out 4 alternate;
+  animation: glow 0.5s ease-in-out 4 alternate;
 }
 
 @-webkit-keyframes glow {
   from {
-    text-shadow: 0 0 5px #bef264, 0 0 10px #84cc16, 0 0 15px #84cc16,
-      0 0 20px #84cc16;
+    text-shadow: 0 0 10px #84cc16, 0 0 15px #84cc16, 0 0 20px #84cc16;
   }
   to {
     text-shadow: 0 0 2px #bef264, 0 0 4px #a3e635, 0 0 8px #a3e635,
@@ -180,7 +184,7 @@ label {
 }
 
 .grid {
-  background-color: rgb(163, 230, 53, 0.6);
+  background-color: rgb(163, 230, 53, 0.5);
 }
 .ship:not(.computer) {
   background-color: #7c3aed;
@@ -195,7 +199,7 @@ label {
 }
 
 .placement-location {
-  background-color: limegreen;
+  background-color: #0891b2;
 }
 
 .space {
@@ -270,19 +274,28 @@ label {
   overflow: hidden;
 }
 
-/* 
-Steps to make responsive:
-  Mobile: 
-    1. make both boards visible with no scrolling
-    2. 
+@media (min-width: 600px) {
+  .gameboard-section {
+    grid-template-rows: none;
+    grid-template-columns: 1fr 1fr;
+  }
 
-*/
+  .computer-section:has(.add-ship-container) {
+    height: auto;
+  }
+  .game-header {
+    text-shadow: 0 0 21px #a3e635, 0 0 42px #84cc16, 0 0 84px #fff;
+    font-size: 6rem;
+  }
+  .gameboard-header {
+    font-size: 2rem;
+  }
 
-/* stuff for media quieries: 
-player section: 
-  padding: 64px;
-  
-  
-  
-  
-  */
+  .add-ship-container label,
+  .add-ship-prompt {
+    font-size: 1.5rem;
+  }
+  .btns-container {
+    padding-top: 64px;
+  }
+}
