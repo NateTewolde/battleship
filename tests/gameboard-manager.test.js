@@ -215,3 +215,45 @@ describe("Gameboard.wasNewShipValid() works correctly", () => {
     expect(playersGameboard.wasNewShipValid()).toBe(true);
   });
 });
+
+test("Gameboard.placeRandomShip() will always place a random ship if there is space left", () => {
+  const playersGameboard = Gameboard();
+
+  for (let i = 0; i < 100; i++) {
+    playersGameboard.placeRandomShip(1);
+  }
+
+  expect(playersGameboard.ships.length).toBe(100);
+});
+
+test("Gameboard.placeRandomShip() will always place the game types 5 ships when called to", () => {
+  let counter = 0;
+  let allShipsValid = 0;
+
+  for (let i = 0; i < 100; i++) {
+    let validShip = 0;
+
+    const playersGameboard = Gameboard();
+
+    playersGameboard.placeRandomShip(Ship(5));
+    playersGameboard.placeRandomShip(Ship(4));
+    playersGameboard.placeRandomShip(Ship(3));
+    playersGameboard.placeRandomShip(Ship(3));
+    playersGameboard.placeRandomShip(Ship(2));
+
+    for (let j = 0; j < 5; j++) {
+      if (playersGameboard.ships[j].length > 1) {
+        validShip++;
+      }
+    }
+    if (playersGameboard.ships.length === 5) {
+      counter++;
+    }
+    if (validShip === 5) {
+      allShipsValid++;
+    }
+  }
+
+  expect(counter).toBe(100);
+  expect(allShipsValid).toBe(100);
+});
