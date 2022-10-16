@@ -8,14 +8,6 @@
   src: url(./Classic-Robot-Font.ttf);
 }
 
-/* 
-Ideas:
--fire-glowy-animation for .hit
--"space" cloud animation around gameboard, grid is same color, 
--find simple image for ship, or something to make the ships lookk interesting
-- flashing You win when won.
-*/
-
 * {
   margin: 0;
   padding: 0;
@@ -27,20 +19,23 @@ body {
 }
 
 #content {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+
   background: radial-gradient(circle at center, navy 0, black 100%);
   height: 100vh;
   overflow: hidden;
   font-family: "Roboto", sans-serif;
-  display: grid;
-  grid-template-rows: min-content 1fr;
+  padding: 4px;
 }
 
 .add-ship-container {
+  flex: 1;
   display: grid;
   grid-template-rows: max-content 1fr;
   row-gap: 16px;
-  height: 100%;
-  width: clamp(100px, 50%, 700px);
+  width: clamp(100px, 45%, 700px);
   color: #d9f99d;
   text-align: center;
   border-radius: 16px;
@@ -106,10 +101,10 @@ body {
     0 0 42px #84cc16, 0 0 84px #84cc16, 0 0 102px #84cc16;
   font-size: 4rem;
   font-weight: 500;
-  padding-top: 16px;
 }
 
 .gameboard-section {
+  flex: 1;
   display: grid;
   grid-template-rows: 1fr 1fr;
   align-items: center;
@@ -138,7 +133,7 @@ body {
   justify-content: center;
   padding: 4px;
   margin-top: 10px;
-  width: clamp(100px, 50%, 700px);
+  width: clamp(100px, 45%, 700px);
   box-shadow: 0 0 5px #a3e635, 0 0 7px #a3e635, 0 0 10px #ecfccb,
     0 0 15px #ecfccb;
 }
@@ -299,5 +294,10 @@ label {
   }
   .btns-container {
     padding-top: 64px;
+  }
+
+  .add-ship-container,
+  .gameboard {
+    width: clamp(100px, 60%, 700px);
   }
 }
