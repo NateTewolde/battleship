@@ -108,7 +108,7 @@ body {
   display: grid;
   grid-template-rows: 1fr 1fr;
   align-items: center;
-  margin-bottom: 24px;
+  margin-bottom: 64px;
 }
 
 .computer-section,
@@ -123,6 +123,7 @@ body {
 .gameboard-header {
   font-size: 1.8rem;
   font-weight: 400;
+  padding-top: 4px;
   color: #a3e635;
   font-family: robot-font, "Roboto", sans-serif;
 }
