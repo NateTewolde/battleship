@@ -120,7 +120,6 @@ describe("Gamebooard.receiveAttack() works correctly", () => {
   const myGameboard = Gameboard();
   const gameboard = myGameboard.getBoard();
 
-  // places ship at x,y coordinates (4,7), (4,8), (4,9)
   myGameboard.placeShip(4, 7, "up", Ship(3));
 
   test("Gameboard.receiveAttack() hits correctly", () => {
@@ -148,11 +147,8 @@ describe("Gamebooard.receiveAttack() works correctly", () => {
 test("Gameboard.areAllSunk() checks if all ships are sunk correctly", () => {
   const myGameboard = Gameboard();
 
-  // places ship at x,y coordinates (4,7), (4,8), (4,9)
   myGameboard.placeShip(4, 7, "down", Ship(3));
-  // places ship at x,y coordinates (0,3), (1,3)
   myGameboard.placeShip(0, 3, "right", Ship(2));
-  // places ship at x,y coordinates (0,4), (1,4)
   myGameboard.placeShip(2, 4, "left", Ship(2));
 
   myGameboard.receiveAttack(4, 7);

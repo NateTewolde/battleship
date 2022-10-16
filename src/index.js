@@ -10,10 +10,6 @@ import {
 import { setAttack, checkForWinner } from "./game-manager";
 import "./styles/style.css";
 
-// Steps to finish:
-//    - if overlap/out of bounds use js form validation
-
-//    - add max grid sizes in css, design and make look nice because last vanilla JS project
 const shipTypes = [
   ["Patrol Boat", 2],
   ["Submarine", 3],
